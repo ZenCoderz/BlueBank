@@ -9,5 +9,6 @@ public interface TransactionService {
 	
 	TransactionDTO createTransaction(TransactionFormCreateDTO transactionFormCreateDTO);
 	TransactionDTO getTransactionDTOById(UUID id);
+	void deleteTransaction (UUID id);
 	
 }

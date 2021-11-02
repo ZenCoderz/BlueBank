@@ -42,4 +42,10 @@ public class TransactionServiceImpl implements TransactionService {
         return this.transactionConverter.convertTransactionToDTO(transaction);
 	}
 
+	@Override
+	public void deleteTransaction(UUID id) {
+		Transaction transaction = this.findTransactionById(id);
+		this.transactionRepository.delete(transaction);
+	}
+
 }
