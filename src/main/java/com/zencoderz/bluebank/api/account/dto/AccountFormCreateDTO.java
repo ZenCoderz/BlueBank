@@ -6,12 +6,12 @@ import lombok.Data;
 
 import javax.validation.constraints.Size;
 
-@Data
+//@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class AccountFormCreateDTO {
-
-    @Size(min=4, max=4)
+	
+	@Size(min=4, max=4)
     private String agency;
 
     @Size(min=1, max=10)
@@ -21,5 +21,38 @@ public class AccountFormCreateDTO {
     private String digit;
 
     private Double credit = 0D;
+
+    public String getAgency() {
+		return agency;
+	}
+
+	public void setAgency(String agency) {
+		this.agency = agency;
+	}
+
+	public String getAccountNumber() {
+		return accountNumber;
+	}
+
+	public void setAccountNumber(String accountNumber) {
+		this.accountNumber = accountNumber;
+	}
+
+	public String getDigit() {
+		return digit;
+	}
+
+	public void setDigit(String digit) {
+		this.digit = digit;
+	}
+
+	public Double getCredit() {
+		return credit;
+	}
+
+	public void setCredit(Double credit) {
+		this.credit = credit;
+	}
+
 
 }
