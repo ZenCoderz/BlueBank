@@ -10,8 +10,8 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AccountFormCreateDTO {
-
-    @Size(min=4, max=4)
+	
+	@Size(min=4, max=4)
     private String agency;
 
     @Size(min=1, max=10)
