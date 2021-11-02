@@ -17,7 +17,7 @@ public class AccountDTO {
 
     private String accountNumber;
 
-    private String digit;
+	private String digit;
 
     private Double balance;
 
