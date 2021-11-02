@@ -41,7 +41,5 @@ public class TransactionServiceImpl implements TransactionService {
 		Transaction transaction = this.findTransactionById(id);
         return this.transactionConverter.convertTransactionToDTO(transaction);
 	}
-	
-	
 
 }
