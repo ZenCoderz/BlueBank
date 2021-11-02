@@ -14,5 +14,6 @@ public interface AccountService {
     AccountDTO getAccountDTOById(UUID id);
     AccountDTO createAccount(AccountFormCreateDTO accountFormCreateDTO);
     AccountDTO updateAccount(UUID id, AccountFormUpdateDTO accountFormUpdateDTO);
+    void deleteAccount(UUID id);
 
 }

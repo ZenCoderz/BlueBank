@@ -56,4 +56,10 @@ public class AccountServiceImpl implements AccountService {
         return this.accountConverter.convertAccountToDTO(account);
     }
 
+    @Override
+    public void deleteAccount(UUID id) {
+        Account account = this.findAccountById(id);
+        this.accountRepository.delete(account);
+    }
+
 }
