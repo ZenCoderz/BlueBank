@@ -1,4 +1,4 @@
-package com.zencoderz.bluebank.auth.config;
+package com.zencoderz.bluebank.auth;
 
 import com.google.gson.Gson;
 import lombok.AllArgsConstructor;

@@ -1,8 +1,8 @@
-package com.zencoderz.bluebank.auth.user;
+package com.zencoderz.bluebank.api.user;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.zencoderz.bluebank.auth.user.attributes.Authority;
-import com.zencoderz.bluebank.auth.user.attributes.IdentifierType;
+import com.zencoderz.bluebank.api.user.attributes.Authority;
+import com.zencoderz.bluebank.api.user.attributes.IdentifierType;
 
 import javax.persistence.*;
 

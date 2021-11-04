@@ -1,4 +1,4 @@
-package com.zencoderz.bluebank.auth.user.attributes;
+package com.zencoderz.bluebank.api.user.attributes;
 
 import java.util.Arrays;
 

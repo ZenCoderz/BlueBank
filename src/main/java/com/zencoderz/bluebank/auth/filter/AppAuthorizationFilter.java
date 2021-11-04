@@ -1,6 +1,6 @@
-package com.zencoderz.bluebank.auth.config.filter;
+package com.zencoderz.bluebank.auth.filter;
 
-import com.zencoderz.bluebank.auth.config.AuthExceptionHandler;
+import com.zencoderz.bluebank.auth.AuthExceptionHandler;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

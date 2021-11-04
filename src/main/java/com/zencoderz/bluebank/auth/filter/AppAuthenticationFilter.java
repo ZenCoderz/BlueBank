@@ -1,11 +1,11 @@
-package com.zencoderz.bluebank.auth.config.filter;
+package com.zencoderz.bluebank.auth.filter;
 
 import com.auth0.jwt.JWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
-import com.zencoderz.bluebank.auth.config.AuthExceptionHandler;
-import com.zencoderz.bluebank.auth.config.dto.LoginFormDTO;
-import com.zencoderz.bluebank.auth.config.util.AuthUtil;
+import com.zencoderz.bluebank.auth.AuthExceptionHandler;
+import com.zencoderz.bluebank.auth.dto.LoginFormDTO;
+import com.zencoderz.bluebank.auth.util.AuthUtil;
 import org.apache.commons.io.IOUtils;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;

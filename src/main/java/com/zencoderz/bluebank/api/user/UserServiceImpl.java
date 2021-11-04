@@ -1,10 +1,11 @@
-package com.zencoderz.bluebank.auth.user;
+package com.zencoderz.bluebank.api.user;
 
-import com.zencoderz.bluebank.auth.config.util.AuthUtil;
-import com.zencoderz.bluebank.auth.user.attributes.Authority;
-import com.zencoderz.bluebank.auth.user.attributes.IdentifierType;
-import com.zencoderz.bluebank.auth.user.dto.UserFormCreateDTO;
+import com.zencoderz.bluebank.auth.util.AuthUtil;
+import com.zencoderz.bluebank.api.user.attributes.Authority;
+import com.zencoderz.bluebank.api.user.attributes.IdentifierType;
+import com.zencoderz.bluebank.api.user.dto.UserFormCreateDTO;
 import com.zencoderz.bluebank.exception.InvalidInputException;
+import lombok.AllArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -19,28 +20,18 @@ import java.util.Optional;
 
 @Service
 @Transactional
+@AllArgsConstructor
 public class UserServiceImpl implements UserService, UserDetailsService {
 
+    private final UserConverter userConverter;
     private final UserRepository userRepository;
-    private final AuthUtil util;
-
-    public UserServiceImpl(UserRepository userRepository, AuthUtil util) {
-        this.userRepository = userRepository;
-        this.util = util;
-    }
 
     @Override
     public User saveUser(UserFormCreateDTO userFormCreateDTO) {
         if (this.userIdentifierAlreadyExists(userFormCreateDTO.getIdentifier(), userFormCreateDTO.getIdentifierType())) {
             throw new InvalidInputException("Identifier already exists");
         }
-        User user = new User();
-        user.setName(userFormCreateDTO.getName());
-        user.setUsername(userFormCreateDTO.getUsername());
-        user.setPassword(util.passwordEncoder().encode(userFormCreateDTO.getPassword()));
-        user.setAuthority(Authority.APPUSER);
-        user.setIdentifier(userFormCreateDTO.getIdentifier());
-        user.setIdentifierType(userFormCreateDTO.getIdentifierType());
+        User user = this.userConverter.convertCreateFormToTransaction(userFormCreateDTO);
         return userRepository.save(user);
     }
 
@@ -56,7 +47,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public User getUser(String username) {
         User user = userRepository.findByUsername(username);
-        if(user == null) {
+        if (user == null) {
             throw new UsernameNotFoundException("User not found");
         }
         return user;

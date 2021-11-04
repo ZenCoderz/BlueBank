@@ -1,7 +1,6 @@
-package com.zencoderz.bluebank.auth.user;
+package com.zencoderz.bluebank.api.user;
 
-import com.zencoderz.bluebank.auth.user.dto.UserDTO;
-import com.zencoderz.bluebank.auth.user.dto.UserFormCreateDTO;
+import com.zencoderz.bluebank.api.user.dto.UserFormCreateDTO;
 
 public interface UserService {
 

@@ -1,8 +1,8 @@
-package com.zencoderz.bluebank.auth.config;
+package com.zencoderz.bluebank.auth;
 
-import com.zencoderz.bluebank.auth.config.filter.AppAuthenticationFilter;
-import com.zencoderz.bluebank.auth.config.filter.AppAuthorizationFilter;
-import com.zencoderz.bluebank.auth.config.util.AuthUtil;
+import com.zencoderz.bluebank.auth.filter.AppAuthenticationFilter;
+import com.zencoderz.bluebank.auth.filter.AppAuthorizationFilter;
+import com.zencoderz.bluebank.auth.util.AuthUtil;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;

@@ -1,8 +1,8 @@
-package com.zencoderz.bluebank.auth.config.util;
+package com.zencoderz.bluebank.auth.util;
 
 import com.auth0.jwt.algorithms.Algorithm;
-import com.zencoderz.bluebank.auth.user.User;
-import com.zencoderz.bluebank.auth.user.attributes.Authority;
+import com.zencoderz.bluebank.api.user.User;
+import com.zencoderz.bluebank.api.user.attributes.Authority;
 import com.zencoderz.bluebank.exception.AuthorizationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;

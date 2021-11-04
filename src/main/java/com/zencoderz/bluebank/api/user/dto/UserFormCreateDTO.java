@@ -1,6 +1,6 @@
-package com.zencoderz.bluebank.auth.user.dto;
+package com.zencoderz.bluebank.api.user.dto;
 
-import com.zencoderz.bluebank.auth.user.attributes.IdentifierType;
+import com.zencoderz.bluebank.api.user.attributes.IdentifierType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
