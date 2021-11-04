@@ -1,4 +1,4 @@
-package com.zencoderz.bluebank.auth.config.dto;
+package com.zencoderz.bluebank.auth.user.dto;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
