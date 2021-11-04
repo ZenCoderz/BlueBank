@@ -26,7 +26,7 @@ public class Transaction {
     	
     }
 
-	public Transaction (UUID id, LocalDateTime date, Double amount) {
+    public Transaction (UUID id, LocalDateTime date, Double amount) {
     	this.id = id;
     	this.date = date;
     	this.amount = amount;

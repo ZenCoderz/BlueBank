@@ -23,25 +23,33 @@ public class TransactionConverterTest {
 
     @Test
     @DisplayName("Conversion from Transaction to DTO returns expected object")
-    public void convertTransactionToTransactionDTOReturnsExpectedObject() {
+    public void convertTransactionToTransactionDTO_ReturnsExpectedObject() {
         Transaction transaction = new Transaction(UUID.randomUUID(), LocalDateTime.now(), 500d);
         TransactionDTO transactionDTO = transactionConverter.convertTransactionToDTO(transaction);
-        TransactionDTO expectedTransactionDTO = new TransactionDTO(
-                transaction.getId(),
-                transaction.getDate(),
-                transaction.getAmount()
-        );
-        assertEquals(expectedTransactionDTO, transactionDTO);
+
+        assertEquals(transaction.getId(), transactionDTO.getId());
+        assertEquals(transaction.getDate(), transactionDTO.getDate());
+        assertEquals(transaction.getAmount(), transactionDTO.getAmount());
+    }
+
+    @Test
+    @DisplayName("Conversion from Transaction to DTO does not return default values")
+    public void convertTransactionToTransactionDTO_DoesNotReturnsDefaultValues() {
+        Transaction transaction = new Transaction(null, null, null);
+        TransactionDTO transactionDTO = transactionConverter.convertTransactionToDTO(transaction);
+
+        assertEquals(null, transactionDTO.getId());
+        assertEquals(null, transactionDTO.getDate());
+        assertEquals(null, transactionDTO.getAmount());
     }
 
     @Test
     @DisplayName("Conversion from TransactionFormCreateDTO to Transaction returns expected object")
-    public void convertTransactionFormCreateDTOToTransactionReturnsExpectedObject() {
+    public void convertTransactionFormCreateDTOToTransaction_ReturnsExpectedObject() {
         TransactionFormCreateDTO transactionFormCreateDTO = new TransactionFormCreateDTO(500d);
         Transaction transaction = transactionConverter.convertCreateFormToTransaction(transactionFormCreateDTO);
-        Transaction expectedTransaction = new Transaction();
-        expectedTransaction.setAmount(transactionFormCreateDTO.getAmount());
-        assertEquals(expectedTransaction, transaction);
+
+        assertEquals(transactionFormCreateDTO.getAmount(), transaction.getAmount());
     }
 
 }

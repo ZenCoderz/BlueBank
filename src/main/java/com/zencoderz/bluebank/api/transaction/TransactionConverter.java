@@ -5,6 +5,10 @@ import org.springframework.stereotype.Component;
 import com.zencoderz.bluebank.api.transaction.dto.TransactionDTO;
 import com.zencoderz.bluebank.api.transaction.dto.TransactionFormCreateDTO;
 
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 @Component
 public class TransactionConverter {
 
@@ -14,6 +18,10 @@ public class TransactionConverter {
 		transactionDTO.setDate(transaction.getDate());
 		transactionDTO.setAmount(transaction.getAmount());
 		return transactionDTO;
+	}
+
+	public Set<TransactionDTO> convertTransactionsToDTO (List<Transaction> transactions) {
+		return transactions.stream().map(this::convertTransactionToDTO).collect(Collectors.toSet());
 	}
 	
 	public Transaction convertCreateFormToTransaction(TransactionFormCreateDTO transactionFormCreateDTO) {
