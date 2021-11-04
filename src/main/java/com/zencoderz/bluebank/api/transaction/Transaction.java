@@ -29,7 +29,7 @@ public class Transaction {
 	public Transaction (UUID id, LocalDateTime date, Double amount) {
     	this.id = id;
     	this.date = date;
-		this.amount = amount;
+    	this.amount = amount;
     }
 
 	public UUID getId() {
