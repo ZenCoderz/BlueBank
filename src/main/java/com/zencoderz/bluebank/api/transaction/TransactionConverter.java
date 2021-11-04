@@ -12,13 +12,13 @@ public class TransactionConverter {
 		TransactionDTO transactionDTO = new TransactionDTO();
 		transactionDTO.setId(transaction.getId());
 		transactionDTO.setDate(transaction.getDate());
-		transactionDTO.setAmmount(transaction.getAmmount());
+		transactionDTO.setAmount(transaction.getAmount());
 		return transactionDTO;
 	}
 	
 	public Transaction convertCreateFormToTransaction(TransactionFormCreateDTO transactionFormCreateDTO) {
 		Transaction transaction = new Transaction();
-		transaction.setAmmount(transactionFormCreateDTO.getAmmount());		
+		transaction.setAmount(transactionFormCreateDTO.getAmount());
 		return transaction;
 	}
 	
