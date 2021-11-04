@@ -8,8 +8,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zencoderz.bluebank.auth.config.AuthExceptionHandler;
 import com.zencoderz.bluebank.auth.config.util.AuthUtil;
 
-import com.zencoderz.bluebank.auth.config.dto.UserAuthorityDTO;
-import com.zencoderz.bluebank.auth.config.dto.UserDTO;
+import com.zencoderz.bluebank.auth.user.dto.UserAuthorityDTO;
+import com.zencoderz.bluebank.auth.user.dto.UserFormCreateDTO;
 import lombok.AllArgsConstructor;
 
 import org.springframework.http.MediaType;
@@ -38,9 +38,9 @@ public class UserController {
     private AuthExceptionHandler authExceptionHandler;
 
     @PostMapping("/register")
-    public ResponseEntity<User> registerUser(@RequestBody @Valid UserDTO userDTO) {
+    public ResponseEntity<User> registerUser(@RequestBody @Valid UserFormCreateDTO userFormCreateDTO) {
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/login").toUriString());
-        return ResponseEntity.created(uri).body(this.userService.saveUser(userDTO));
+        return ResponseEntity.created(uri).body(this.userService.saveUser(userFormCreateDTO));
     }
 
     @GetMapping("/currentUser")

@@ -2,7 +2,9 @@ package com.zencoderz.bluebank.auth.user;
 
 import com.zencoderz.bluebank.auth.config.util.AuthUtil;
 import com.zencoderz.bluebank.auth.user.attributes.Authority;
-import com.zencoderz.bluebank.auth.config.dto.UserDTO;
+import com.zencoderz.bluebank.auth.user.attributes.IdentifierType;
+import com.zencoderz.bluebank.auth.user.dto.UserFormCreateDTO;
+import com.zencoderz.bluebank.exception.InvalidInputException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -13,6 +15,7 @@ import javax.transaction.Transactional;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -27,19 +30,24 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public User saveUser(UserDTO userDTO) {
+    public User saveUser(UserFormCreateDTO userFormCreateDTO) {
+        if (this.userIdentifierAlreadyExists(userFormCreateDTO.getIdentifier(), userFormCreateDTO.getIdentifierType())) {
+            throw new InvalidInputException("Identifier already exists");
+        }
         User user = new User();
-        user.setName(userDTO.getName());
-        user.setUsername(userDTO.getUsername());
-        user.setPassword(util.passwordEncoder().encode(userDTO.getPassword()));
+        user.setName(userFormCreateDTO.getName());
+        user.setUsername(userFormCreateDTO.getUsername());
+        user.setPassword(util.passwordEncoder().encode(userFormCreateDTO.getPassword()));
         user.setAuthority(Authority.APPUSER);
+        user.setIdentifier(userFormCreateDTO.getIdentifier());
+        user.setIdentifierType(userFormCreateDTO.getIdentifierType());
         return userRepository.save(user);
     }
 
     @Override
-    public void changeUserAuthority(String username, String authority) throws Exception {
+    public void changeUserAuthority(String username, String authority) {
         if (isAuthorityNotValid(authority)) {
-            throw new Exception("Authority doesn't exist");
+            throw new InvalidInputException("Authority doesn't exist");
         }
         User user = getUser(username);
         user.setAuthority(Authority.valueOf(authority.toUpperCase()));
@@ -60,6 +68,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         SimpleGrantedAuthority authority = new SimpleGrantedAuthority(user.getAuthority().toString());
         Collection<SimpleGrantedAuthority> grantedAuthorities = List.of(authority);
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), grantedAuthorities);
+    }
+
+    private boolean userIdentifierAlreadyExists(String identifier, IdentifierType identifierType) {
+        Optional<User> optionalUser = this.userRepository.findByIdentifierAndIdentifierType(identifier, identifierType);
+        return optionalUser.isPresent();
     }
 
     private boolean isAuthorityNotValid(String authority) {

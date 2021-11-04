@@ -1,29 +1,31 @@
 package com.zencoderz.bluebank.auth.user;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.zencoderz.bluebank.auth.user.attributes.Authority;
+import com.zencoderz.bluebank.auth.user.attributes.IdentifierType;
 
 import javax.persistence.*;
 
 @Entity
+@Table(name="user", indexes = {@Index(name = "identifier_identifier_type_index", columnList = "identifier, identifierType", unique = true)})
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @JsonIgnore
     private Long id;
     private String name;
 
     @Column(unique = true)
-    @JsonIgnore
     private String username;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
-    @JsonIgnore
     private Authority authority = Authority.APPUSER;
+
+    private String identifier;
+
+    private IdentifierType identifierType;
 
     public User() {}
 
@@ -72,6 +74,22 @@ public class User {
 
     public void setAuthority(Authority authority) {
         this.authority = authority;
+    }
+
+    public String getIdentifier() {
+        return identifier;
+    }
+
+    public void setIdentifier(String identifier) {
+        this.identifier = identifier;
+    }
+
+    public IdentifierType getIdentifierType() {
+        return identifierType;
+    }
+
+    public void setIdentifierType(IdentifierType identifierType) {
+        this.identifierType = identifierType;
     }
 
 }
