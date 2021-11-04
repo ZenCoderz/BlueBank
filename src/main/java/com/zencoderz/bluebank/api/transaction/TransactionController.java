@@ -1,10 +1,12 @@
 package com.zencoderz.bluebank.api.transaction;
 
 import java.net.URI;
+import java.util.Set;
 import java.util.UUID;
 
 import javax.validation.Valid;
 
+import com.zencoderz.bluebank.api.account.dto.AccountDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -28,6 +30,12 @@ public class TransactionController {
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path(
         		"/" + transactionDTO.getId()).toUriString());
         return ResponseEntity.created(uri).body(transactionDTO);
+    }
+
+    @GetMapping
+    public ResponseEntity<Set<TransactionDTO>> getAccounts() {
+        Set<TransactionDTO> transactionDTOS = this.transactionService.getTransactionsDTO();
+        return ResponseEntity.ok(transactionDTOS);
     }
 	
 	@GetMapping("/{id}")

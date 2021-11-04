@@ -12,6 +12,6 @@ import lombok.AllArgsConstructor;
 public class TransactionFormCreateDTO {
 
 	@DecimalMin("0.01")
-	private Double ammount;
+	private Double amount;
 	
 }
