@@ -1,10 +1,11 @@
 package com.zencoderz.bluebank.api.transaction;
 
-import com.zencoderz.bluebank.api.transaction.dto.TransactionDTO;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import com.zencoderz.bluebank.api.transaction.dto.TransactionFormCreateDTO;
+import com.zencoderz.bluebank.api.transaction.dto.TransactionDTO;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -38,9 +39,9 @@ public class TransactionConverterTest {
         Transaction transaction = new Transaction(null, null, null);
         TransactionDTO transactionDTO = transactionConverter.convertTransactionToDTO(transaction);
 
-        assertEquals(null, transactionDTO.getId());
-        assertEquals(null, transactionDTO.getDate());
-        assertEquals(null, transactionDTO.getAmount());
+        assertNull(transactionDTO.getId());
+        assertNull(transactionDTO.getDate());
+        assertNull(transactionDTO.getAmount());
     }
 
     @Test

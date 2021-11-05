@@ -2,9 +2,8 @@ package com.zencoderz.bluebank.api.user;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zencoderz.bluebank.BluebankApplicationTests;
-import com.zencoderz.bluebank.auth.user.UserController;
-import com.zencoderz.bluebank.auth.user.attributes.IdentifierType;
-import com.zencoderz.bluebank.auth.user.dto.UserFormCreateDTO;
+import com.zencoderz.bluebank.api.user.attributes.IdentifierType;
+import com.zencoderz.bluebank.api.user.dto.UserFormCreateDTO;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
