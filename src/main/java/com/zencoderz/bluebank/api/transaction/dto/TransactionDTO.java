@@ -14,7 +14,7 @@ public class TransactionDTO {
 
 	private UUID id;
 	
-	private LocalDateTime date;
+	private LocalDateTime createdAt;
 	
 	private Double amount;
 

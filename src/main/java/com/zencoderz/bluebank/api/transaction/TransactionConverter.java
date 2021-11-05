@@ -15,7 +15,7 @@ public class TransactionConverter {
 	public TransactionDTO convertTransactionToDTO (Transaction transaction) {
 		TransactionDTO transactionDTO = new TransactionDTO();
 		transactionDTO.setId(transaction.getId());
-		transactionDTO.setDate(transaction.getDate());
+		transactionDTO.setCreatedAt(transaction.getCreatedAt());
 		transactionDTO.setAmount(transaction.getAmount());
 		return transactionDTO;
 	}
@@ -23,11 +23,11 @@ public class TransactionConverter {
 	public Set<TransactionDTO> convertTransactionsToDTO (List<Transaction> transactions) {
 		return transactions.stream().map(this::convertTransactionToDTO).collect(Collectors.toSet());
 	}
-	
+
 	public Transaction convertCreateFormToTransaction(TransactionFormCreateDTO transactionFormCreateDTO) {
 		Transaction transaction = new Transaction();
 		transaction.setAmount(transactionFormCreateDTO.getAmount());
 		return transaction;
 	}
-	
+
 }

@@ -29,7 +29,7 @@ public class TransactionConverterTest {
         TransactionDTO transactionDTO = transactionConverter.convertTransactionToDTO(transaction);
 
         assertEquals(transaction.getId(), transactionDTO.getId());
-        assertEquals(transaction.getDate(), transactionDTO.getDate());
+        assertEquals(transaction.getCreatedAt(), transactionDTO.getCreatedAt());
         assertEquals(transaction.getAmount(), transactionDTO.getAmount());
     }
 
@@ -40,7 +40,7 @@ public class TransactionConverterTest {
         TransactionDTO transactionDTO = transactionConverter.convertTransactionToDTO(transaction);
 
         assertNull(transactionDTO.getId());
-        assertNull(transactionDTO.getDate());
+        assertNull(transactionDTO.getCreatedAt());
         assertNull(transactionDTO.getAmount());
     }
 
