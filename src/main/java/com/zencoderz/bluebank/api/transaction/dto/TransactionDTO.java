@@ -16,6 +16,6 @@ public class TransactionDTO {
 	
 	private LocalDateTime date;
 	
-	private Double ammount;
+	private Double amount;
 
 }

@@ -1,8 +1,11 @@
 package com.zencoderz.bluebank.api.transaction;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 
+import com.zencoderz.bluebank.api.account.Account;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,6 +37,12 @@ public class TransactionServiceImpl implements TransactionService {
 				this.transactionConverter.convertCreateFormToTransaction(transactionFormCreateDTO);
         this.transactionRepository.save(transaction);
         return this.transactionConverter.convertTransactionToDTO(transaction);
+	}
+
+	@Override
+	public Set<TransactionDTO> getTransactionsDTO() {
+		List<Transaction> transactions = this.transactionRepository.findAll();
+		return this.transactionConverter.convertTransactionsToDTO(transactions);
 	}
 
 	@Override

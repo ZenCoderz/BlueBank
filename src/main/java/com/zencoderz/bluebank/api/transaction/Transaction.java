@@ -20,16 +20,16 @@ public class Transaction {
     @Nullable
     private LocalDateTime date;
     
-    private Double ammount;
+    private Double amount;
     
     public Transaction () {
     	
     }
 
-	public Transaction (UUID id, LocalDateTime date, Double ammount) {
+    public Transaction (UUID id, LocalDateTime date, Double amount) {
     	this.id = id;
     	this.date = date;
-    	this.ammount = ammount;
+    	this.amount = amount;
     }
 
 	public UUID getId() {
@@ -48,12 +48,12 @@ public class Transaction {
 		this.date = date;
 	}
 	
-	public Double getAmmount() {
-		return ammount;
+	public Double getAmount() {
+		return amount;
 	}
 
-	public void setAmmount(Double ammount) {
-		this.ammount = ammount;
+	public void setAmount(Double amount) {
+		this.amount = amount;
 	}
 
 }
