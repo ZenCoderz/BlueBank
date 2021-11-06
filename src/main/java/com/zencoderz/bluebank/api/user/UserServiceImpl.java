@@ -17,10 +17,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @Transactional
@@ -71,6 +68,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public UserDTO getUserDTO(String username) {
         User user = this.getUser(username);
         return this.userConverter.userToUserDTO(user);
+    }
+
+    @Override
+    public Set<UserDTO> getUsersDTO() {
+        List<User> users = this.userRepository.findAll();
+        return this.userConverter.convertUsersToDTO(users);
     }
 
     @Override
