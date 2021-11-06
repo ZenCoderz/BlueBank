@@ -7,6 +7,7 @@ import java.util.UUID;
 
 import com.zencoderz.bluebank.api.account.Account;
 import com.zencoderz.bluebank.api.account.AccountService;
+import com.zencoderz.bluebank.api.transaction.dto.TransactionFormUpdateDTO;
 import com.zencoderz.bluebank.exception.InvalidInputException;
 import org.springframework.stereotype.Service;
 
@@ -57,6 +58,14 @@ public class TransactionServiceImpl implements TransactionService {
 	public TransactionDTO findTransactionDTOById(UUID id) {
 		Transaction transaction = this.findTransactionById(id);
         return this.transactionConverter.convertTransactionToDTO(transaction);
+	}
+
+	@Override
+	public TransactionDTO updateTransaction(UUID id, TransactionFormUpdateDTO transactionFormUpdateDTO) {
+		Transaction transaction = this.findTransactionById(id);
+		transaction.setAmount(transactionFormUpdateDTO.getAmount());
+		this.transactionRepository.save(transaction);
+		return this.transactionConverter.convertTransactionToDTO(transaction);
 	}
 
 	@Override
