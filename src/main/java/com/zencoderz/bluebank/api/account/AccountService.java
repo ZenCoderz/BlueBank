@@ -1,6 +1,5 @@
 package com.zencoderz.bluebank.api.account;
 
-
 import com.zencoderz.bluebank.api.account.dto.AccountDTO;
 import com.zencoderz.bluebank.api.account.dto.AccountFormCreateDTO;
 import com.zencoderz.bluebank.api.account.dto.AccountFormUpdateDTO;
@@ -12,7 +11,7 @@ public interface AccountService {
 
     Set<AccountDTO> getAccountsDTO();
     AccountDTO getAccountDTOById(UUID id);
-    AccountDTO createAccount(AccountFormCreateDTO accountFormCreateDTO);
+    AccountDTO createAccount(UUID userId, AccountFormCreateDTO accountFormCreateDTO);
     AccountDTO updateAccount(UUID id, AccountFormUpdateDTO accountFormUpdateDTO);
     void deleteAccount(UUID id);
 

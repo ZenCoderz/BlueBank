@@ -3,12 +3,15 @@ package com.zencoderz.bluebank.api.account;
 import com.zencoderz.bluebank.api.account.dto.AccountDTO;
 import com.zencoderz.bluebank.api.account.dto.AccountFormCreateDTO;
 import com.zencoderz.bluebank.api.account.dto.AccountFormUpdateDTO;
+
 import lombok.AllArgsConstructor;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
+
 import java.net.URI;
 import java.util.Set;
 import java.util.UUID;
@@ -32,9 +35,10 @@ public class AccountController {
         return ResponseEntity.ok(accountDTO);
     }
 
-    @PostMapping
-    public ResponseEntity<AccountDTO> createAccount(@RequestBody @Valid AccountFormCreateDTO accountFormCreateDTO) {
-        AccountDTO accountDTO = this.accountService.createAccount(accountFormCreateDTO);
+    @PostMapping("/user/{userId}")
+    public ResponseEntity<AccountDTO> createAccount(@PathVariable("userId") UUID userId,
+                                                    @RequestBody @Valid AccountFormCreateDTO accountFormCreateDTO) {
+        AccountDTO accountDTO = this.accountService.createAccount(userId, accountFormCreateDTO);
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/" + accountDTO.getId()).toUriString());
         return ResponseEntity.created(uri).body(accountDTO);
     }
@@ -51,4 +55,5 @@ public class AccountController {
         this.accountService.deleteAccount(id);
         return ResponseEntity.ok("Deleted");
     }
+
 }

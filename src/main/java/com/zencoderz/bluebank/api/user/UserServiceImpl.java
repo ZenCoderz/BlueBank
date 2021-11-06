@@ -1,11 +1,14 @@
 package com.zencoderz.bluebank.api.user;
 
-import com.zencoderz.bluebank.auth.util.AuthUtil;
+import com.zencoderz.bluebank.api.user.dto.UserDTO;
 import com.zencoderz.bluebank.api.user.attributes.Authority;
 import com.zencoderz.bluebank.api.user.attributes.IdentifierType;
 import com.zencoderz.bluebank.api.user.dto.UserFormCreateDTO;
+import com.zencoderz.bluebank.exception.ContentNotFoundException;
 import com.zencoderz.bluebank.exception.InvalidInputException;
+
 import lombok.AllArgsConstructor;
+
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -17,6 +20,7 @@ import javax.transaction.Transactional;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @Transactional
@@ -27,12 +31,22 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private final UserRepository userRepository;
 
     @Override
-    public User saveUser(UserFormCreateDTO userFormCreateDTO) {
+    public User findUserById(UUID userId) {
+        Optional<User> optionalUser = this.userRepository.findById(userId);
+        if (optionalUser.isEmpty()) {
+            throw new ContentNotFoundException("User doesn't Exist");
+        }
+        return optionalUser.get();
+    }
+
+    @Override
+    public UserDTO saveUser(UserFormCreateDTO userFormCreateDTO) {
         if (this.userIdentifierAlreadyExists(userFormCreateDTO.getIdentifier(), userFormCreateDTO.getIdentifierType())) {
             throw new InvalidInputException("Identifier already exists");
         }
         User user = this.userConverter.convertCreateFormToTransaction(userFormCreateDTO);
-        return userRepository.save(user);
+        this.userRepository.save(user);
+        return this.userConverter.userToUserDTO(user);
     }
 
     @Override
@@ -51,6 +65,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             throw new UsernameNotFoundException("User not found");
         }
         return user;
+    }
+
+    @Override
+    public UserDTO getUserDTO(String username) {
+        User user = this.getUser(username);
+        return this.userConverter.userToUserDTO(user);
     }
 
     @Override

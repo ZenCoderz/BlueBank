@@ -3,12 +3,9 @@ package com.zencoderz.bluebank.api.transaction;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
-import org.springframework.lang.Nullable;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 public class Transaction {
@@ -16,9 +13,10 @@ public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
-    
-    @Nullable
-    private LocalDateTime date;
+
+	@Column(updatable = false)
+	@CreationTimestamp
+    private LocalDateTime createdAt;
     
     private Double amount;
     
@@ -26,9 +24,9 @@ public class Transaction {
     	
     }
 
-    public Transaction (UUID id, LocalDateTime date, Double amount) {
+    public Transaction (UUID id, LocalDateTime createdAt, Double amount) {
     	this.id = id;
-    	this.date = date;
+    	this.createdAt = createdAt;
     	this.amount = amount;
     }
 
@@ -40,12 +38,12 @@ public class Transaction {
 		this.id = id;
 	}
 
-	public LocalDateTime getDate() {
-		return date;
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
 	}
 
-	public void setDate(LocalDateTime date) {
-		this.date = date;
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
 	}
 	
 	public Double getAmount() {
