@@ -9,8 +9,9 @@ import java.util.UUID;
 
 public interface AccountService {
 
+    Account findAccountById(UUID id);
     Set<AccountDTO> getAccountsDTO();
-    AccountDTO getAccountDTOById(UUID id);
+    AccountDTO findAccountDTOById(UUID id);
     AccountDTO createAccount(UUID userId, AccountFormCreateDTO accountFormCreateDTO);
     AccountDTO updateAccount(UUID id, AccountFormUpdateDTO accountFormUpdateDTO);
     void deleteAccount(UUID id);

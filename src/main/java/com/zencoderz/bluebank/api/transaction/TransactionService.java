@@ -10,7 +10,7 @@ public interface TransactionService {
 	
 	TransactionDTO createTransaction(TransactionFormCreateDTO transactionFormCreateDTO);
 	Set<TransactionDTO> getTransactionsDTO();
-	TransactionDTO getTransactionDTOById(UUID id);
+	TransactionDTO findTransactionDTOById(UUID id);
 	void deleteTransaction (UUID id);
 	
 }

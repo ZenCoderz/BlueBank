@@ -5,6 +5,8 @@ import java.util.UUID;
 
 import javax.persistence.*;
 
+import com.zencoderz.bluebank.api.account.Account;
+
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
@@ -19,8 +21,14 @@ public class Transaction {
     private LocalDateTime createdAt;
     
     private Double amount;
-    
-    public Transaction () {
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	private Account from;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	private Account to;
+
+	public Transaction () {
     	
     }
 
@@ -52,6 +60,22 @@ public class Transaction {
 
 	public void setAmount(Double amount) {
 		this.amount = amount;
+	}
+
+	public Account getFrom() {
+		return from;
+	}
+
+	public void setFrom(Account from) {
+		this.from = from;
+	}
+
+	public Account getTo() {
+		return to;
+	}
+
+	public void setTo(Account to) {
+		this.to = to;
 	}
 
 }

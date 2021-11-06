@@ -1,67 +1,78 @@
 package com.zencoderz.bluebank.api.account;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import com.zencoderz.bluebank.BluebankApplicationTests;
+import com.zencoderz.bluebank.api.account.dto.AccountDTO;
 import com.zencoderz.bluebank.api.account.dto.AccountFormCreateDTO;
 import com.zencoderz.bluebank.api.user.User;
-import com.zencoderz.bluebank.api.user.UserService;
-import com.zencoderz.bluebank.api.user.attributes.IdentifierType;
-import com.zencoderz.bluebank.api.user.dto.UserFormCreateDTO;
+import com.zencoderz.bluebank.exception.BlueBankRunTimeExceptionHandler;
+import com.zencoderz.bluebank.factory.AccountTestUtil;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-@SpringBootTest
 public class AccountControllerTest extends BluebankApplicationTests {
 
     private MockMvc mockMvc;
 
-    @Autowired
-    private UserService userService;
+    private final Gson gson = new Gson();
 
     @Autowired
     private AccountController accountController;
 
+    @Autowired
+    private AccountTestUtil accountTestUtil;
+
     @BeforeEach
     public void setup() {
-        this.mockMvc = MockMvcBuilders.standaloneSetup(accountController).build();
+        this.mockMvc = MockMvcBuilders.standaloneSetup(accountController)
+                .setControllerAdvice(new BlueBankRunTimeExceptionHandler()).build();;
     }
 
     @Test
-    public void createAccountWithCorrectData_ReturnStatusCode201() throws Exception {
-        User user = this.buildUserMock("1");
-        AccountFormCreateDTO account = new AccountFormCreateDTO("0123","123456789", "0",250.00);
-        ObjectMapper mapper = new ObjectMapper();
-        String json = mapper.writeValueAsString(account);
-        this.mockMvc.perform(MockMvcRequestBuilders.post("/accounts/user/" + user.getId())
-                .contentType(MediaType.APPLICATION_JSON).content(json))
-                .andExpect(MockMvcResultMatchers.status().isCreated());
+    public void createAccount_WithCorrectData() throws Exception {
+        Account account = this.accountTestUtil.buildAccount();
+
+        AccountFormCreateDTO accountFormCreateDTO = new AccountFormCreateDTO();
+        accountFormCreateDTO.setAccountNumber(account.getAccountNumber());
+        accountFormCreateDTO.setCredit(account.getCredit());
+        accountFormCreateDTO.setAgency(account.getAgency());
+        accountFormCreateDTO.setDigit(account.getDigit());
+
+        MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders
+                .post("/accounts/user/" + account.getUser().getId())
+                .contentType(MediaType.APPLICATION_JSON).content(this.gson.toJson(accountFormCreateDTO)))
+                .andReturn();
+
+        MockHttpServletResponse response = mvcResult.getResponse();
+        Assertions.assertNotNull(response);
+        Assertions.assertEquals(HttpStatus.CREATED.value(), response.getStatus());
+
+        AccountDTO accountDTO = this.gson.fromJson(response.getContentAsString(), AccountDTO.class);
+
+        Assertions.assertEquals(account.getAccountNumber(), accountDTO.getAccountNumber());
+        Assertions.assertEquals(account.getAgency(), accountDTO.getAgency());
+        Assertions.assertEquals(account.getDigit(), accountDTO.getDigit());
+        Assertions.assertEquals(20000D, accountDTO.getBalance());
+        Assertions.assertEquals(account.getCredit(), accountDTO.getCredit());
     }
 
     @Test
-    public void createAccountWithIncorrectData_ReturnStatusCode400() throws Exception {
-        User user = this.buildUserMock("2");
+    public void createAccount_WithNull() throws Exception {
+        User user = this.accountTestUtil.buildAccount().getUser();
         this.mockMvc.perform(MockMvcRequestBuilders.post("/accounts/user/" + user.getId())
                 .contentType(MediaType.APPLICATION_JSON).content(""))
                 .andExpect(MockMvcResultMatchers.status().isBadRequest());
-    }
-
-    private User buildUserMock(String identifier) {
-        UserFormCreateDTO user = new UserFormCreateDTO();
-        user.setName("User Complete Name " + identifier);
-        user.setUsername("appUser"  + identifier);
-        user.setPassword("password");
-        user.setIdentifier("1111111111" + identifier);
-        user.setIdentifierType(IdentifierType.CPF);
-        this.userService.saveUser(user);
-        return this.userService.getUser(user.getUsername());
     }
 
 }
