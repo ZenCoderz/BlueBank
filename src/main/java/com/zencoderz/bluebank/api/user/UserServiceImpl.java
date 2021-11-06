@@ -41,7 +41,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public UserDTO saveUser(UserFormCreateDTO userFormCreateDTO) {
-        if (this.userIdentifierAlreadyExists(userFormCreateDTO.getIdentifier(), userFormCreateDTO.getIdentifierType())) {
+        if (usernameAlreadyExists(userFormCreateDTO.getUsername())) {
+            throw new InvalidInputException("Username already in use");
+        }
+        if (this.identifierAlreadyExists(userFormCreateDTO.getIdentifier(), userFormCreateDTO.getIdentifierType())) {
             throw new InvalidInputException("Identifier already exists");
         }
         User user = this.userConverter.convertCreateFormToTransaction(userFormCreateDTO);
@@ -81,7 +84,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), grantedAuthorities);
     }
 
-    private boolean userIdentifierAlreadyExists(String identifier, IdentifierType identifierType) {
+    private boolean usernameAlreadyExists(String username) {
+        User user = userRepository.findByUsername(username);
+        return user != null;
+    }
+
+    private boolean identifierAlreadyExists(String identifier, IdentifierType identifierType) {
         Optional<User> optionalUser = this.userRepository.findByIdentifierAndIdentifierType(identifier, identifierType);
         return optionalUser.isPresent();
     }
