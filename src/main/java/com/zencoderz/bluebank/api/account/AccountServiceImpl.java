@@ -3,7 +3,12 @@ package com.zencoderz.bluebank.api.account;
 import com.zencoderz.bluebank.api.account.dto.AccountDTO;
 import com.zencoderz.bluebank.api.account.dto.AccountFormCreateDTO;
 import com.zencoderz.bluebank.api.account.dto.AccountFormUpdateDTO;
+import com.zencoderz.bluebank.api.user.User;
+import com.zencoderz.bluebank.api.user.UserService;
+import com.zencoderz.bluebank.exception.InvalidInputException;
+
 import lombok.AllArgsConstructor;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,6 +22,7 @@ public class AccountServiceImpl implements AccountService {
 
     private AccountRepository accountRepository;
     private AccountConverter accountConverter;
+    private UserService userService;
 
     private Account findAccountById(UUID id) {
         Optional<Account> accountOptional = this.accountRepository.findById(id);
@@ -39,8 +45,13 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public AccountDTO createAccount(AccountFormCreateDTO accountFormCreateDTO) {
+    public AccountDTO createAccount(UUID userId, AccountFormCreateDTO accountFormCreateDTO) {
         Account account = this.accountConverter.convertCreateFormToAccount(accountFormCreateDTO);
+        User user = this.userService.findUserById(userId);
+        if (user.getAccount() != null) {
+            throw new InvalidInputException("User " + user.getName() + " already has a Account");
+        }
+        account.setUser(user);
         this.accountRepository.save(account);
         return this.accountConverter.convertAccountToDTO(account);
     }

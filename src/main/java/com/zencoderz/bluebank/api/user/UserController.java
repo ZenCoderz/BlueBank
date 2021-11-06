@@ -5,11 +5,12 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.zencoderz.bluebank.api.user.dto.UserDTO;
 import com.zencoderz.bluebank.auth.AuthExceptionHandler;
 import com.zencoderz.bluebank.auth.util.AuthUtil;
-
 import com.zencoderz.bluebank.api.user.dto.UserAuthorityDTO;
 import com.zencoderz.bluebank.api.user.dto.UserFormCreateDTO;
+
 import lombok.AllArgsConstructor;
 
 import org.springframework.http.MediaType;
@@ -38,15 +39,15 @@ public class UserController {
     private AuthExceptionHandler authExceptionHandler;
 
     @PostMapping("/register")
-    public ResponseEntity<User> registerUser(@RequestBody @Valid UserFormCreateDTO userFormCreateDTO) {
+    public ResponseEntity<UserDTO> registerUser(@RequestBody @Valid UserFormCreateDTO userFormCreateDTO) {
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/login").toUriString());
         return ResponseEntity.created(uri).body(this.userService.saveUser(userFormCreateDTO));
     }
 
     @GetMapping("/currentUser")
-    public ResponseEntity<User> getUser(Authentication authentication) {
-        User user = this.userService.getUser(authentication.getName());
-        return ResponseEntity.ok().body(user);
+    public ResponseEntity<UserDTO> getUser(Authentication authentication) {
+        UserDTO userDTO = this.userService.getUserDTO(authentication.getName());
+        return ResponseEntity.ok().body(userDTO);
     }
 
     @PatchMapping("/user/exchangeAuthority")

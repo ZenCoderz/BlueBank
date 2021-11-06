@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 
 @Data
@@ -20,6 +21,7 @@ public class AccountFormUpdateDTO {
     @Size(min=1, max=1)
     private String digit;
 
+    @Min(0)
     private Double credit = 0D;
 
 }

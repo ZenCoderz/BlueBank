@@ -1,11 +1,12 @@
 package com.zencoderz.bluebank.api.account;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.zencoderz.bluebank.api.user.User;
+
+import javax.persistence.*;
+
 import java.util.UUID;
 
+@Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "user_id" })})
 @Entity
 public class Account {
 
@@ -13,27 +14,35 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
+    @Column(length = 4, nullable = false)
     private String agency;
 
+    @Column(length = 10,  nullable = false)
     private String accountNumber;
 
+    @Column(length = 2, nullable = false)
     private String digit;
 
     private Double balance;
 
     private Double credit;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
+
     public Account() {
 
     }
 
-    public Account(UUID id, String agency, String accountNumber, String digit, Double balance, Double credit) {
+    public Account(UUID id, String agency, String accountNumber, String digit, Double balance, Double credit, User user) {
         this.id = id;
         this.agency = agency;
         this.accountNumber = accountNumber;
         this.digit = digit;
         this.balance = balance;
         this.credit = credit;
+        this.user = user;
     }
 
     public UUID getId() {
@@ -82,6 +91,14 @@ public class Account {
 
     public void setCredit(Double credit) {
         this.credit = credit;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
 }
