@@ -6,7 +6,6 @@ import java.util.UUID;
 
 import javax.validation.Valid;
 
-import com.zencoderz.bluebank.api.account.dto.AccountDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -25,22 +24,22 @@ public class TransactionController {
 	
 	@PostMapping
     public ResponseEntity<TransactionDTO> createTransaction(
-    		@RequestBody @Valid TransactionFormCreateDTO transactionFormCreateDTO) {
+            @RequestBody @Valid TransactionFormCreateDTO transactionFormCreateDTO) {
         TransactionDTO transactionDTO = this.transactionService.createTransaction(transactionFormCreateDTO);
-        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path(
-        		"/" + transactionDTO.getId()).toUriString());
+        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("/" + transactionDTO.getId()).toUriString());
         return ResponseEntity.created(uri).body(transactionDTO);
     }
 
     @GetMapping
-    public ResponseEntity<Set<TransactionDTO>> getAccounts() {
+    public ResponseEntity<Set<TransactionDTO>> getTransactions() {
         Set<TransactionDTO> transactionDTOS = this.transactionService.getTransactionsDTO();
         return ResponseEntity.ok(transactionDTOS);
     }
 	
 	@GetMapping("/{id}")
-    public ResponseEntity<TransactionDTO> getAccountById(@PathVariable("id") UUID id) {
-        TransactionDTO transactionDTO = this.transactionService.getTransactionDTOById(id);
+    public ResponseEntity<TransactionDTO> findTransactionById(@PathVariable("id") UUID id) {
+        TransactionDTO transactionDTO = this.transactionService.findTransactionDTOById(id);
         return ResponseEntity.ok(transactionDTO);
     }
 

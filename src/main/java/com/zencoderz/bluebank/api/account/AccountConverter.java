@@ -17,6 +17,9 @@ public class AccountConverter {
 
     public AccountDTO convertAccountToDTO(Account account) {
         AccountDTO accountDTO = new AccountDTO();
+        if (account == null) {
+            return accountDTO;
+        }
         accountDTO.setId(account.getId());
         accountDTO.setAgency(account.getAgency());
         accountDTO.setAccountNumber(account.getAccountNumber());
@@ -28,6 +31,9 @@ public class AccountConverter {
 
     public Account convertCreateFormToAccount(AccountFormCreateDTO accountFormCreateDTO) {
         Account account = new Account();
+        if (accountFormCreateDTO == null) {
+            return account;
+        }
         account.setAgency(accountFormCreateDTO.getAgency());
         account.setAccountNumber(accountFormCreateDTO.getAccountNumber());
         account.setBalance(20000D);

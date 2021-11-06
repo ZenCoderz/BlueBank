@@ -24,7 +24,8 @@ public class AccountServiceImpl implements AccountService {
     private AccountConverter accountConverter;
     private UserService userService;
 
-    private Account findAccountById(UUID id) {
+    @Override
+    public Account findAccountById(UUID id) {
         Optional<Account> accountOptional = this.accountRepository.findById(id);
         if (accountOptional.isEmpty()) {
             throw new RuntimeException("Account not found");
@@ -39,7 +40,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public AccountDTO getAccountDTOById(UUID id) {
+    public AccountDTO findAccountDTOById(UUID id) {
         Account account = this.findAccountById(id);
         return this.accountConverter.convertAccountToDTO(account);
     }

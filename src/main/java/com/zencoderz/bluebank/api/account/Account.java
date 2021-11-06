@@ -1,9 +1,12 @@
 package com.zencoderz.bluebank.api.account;
 
+import com.zencoderz.bluebank.api.transaction.Transaction;
 import com.zencoderz.bluebank.api.user.User;
 
 import javax.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "user_id" })})
@@ -30,6 +33,12 @@ public class Account {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy="from")
+    private List<Transaction> madeTransfers = new ArrayList<>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "to")
+    private List<Transaction> receivedTransfers = new ArrayList<>();
 
     public Account() {
 

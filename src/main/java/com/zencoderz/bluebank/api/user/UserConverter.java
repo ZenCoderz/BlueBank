@@ -17,6 +17,9 @@ public class UserConverter {
 
     public User convertCreateFormToTransaction(UserFormCreateDTO userFormCreateDTO) {
         User user = new User();
+        if (userFormCreateDTO == null) {
+            return user;
+        }
         user.setName(userFormCreateDTO.getName());
         user.setUsername(userFormCreateDTO.getUsername());
         user.setPassword(authUtil.passwordEncoder().encode(userFormCreateDTO.getPassword()));
@@ -28,6 +31,9 @@ public class UserConverter {
 
     public UserDTO userToUserDTO(User user) {
         UserDTO userDTO = new UserDTO();
+        if (user == null) {
+            return userDTO;
+        }
         userDTO.setId(user.getId());
         userDTO.setUsername(user.getUsername());
         userDTO.setName(user.getName());

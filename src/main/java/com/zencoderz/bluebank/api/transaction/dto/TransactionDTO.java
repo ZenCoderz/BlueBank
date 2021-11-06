@@ -1,7 +1,8 @@
 package com.zencoderz.bluebank.api.transaction.dto;
 
-import java.time.LocalDateTime;
 import java.util.UUID;
+
+import com.zencoderz.bluebank.api.account.dto.AccountDTO;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,8 +15,12 @@ public class TransactionDTO {
 
 	private UUID id;
 	
-	private LocalDateTime createdAt;
-	
+	private String createdAt;
+
 	private Double amount;
+
+	private AccountDTO from;
+
+	private AccountDTO to;
 
 }
