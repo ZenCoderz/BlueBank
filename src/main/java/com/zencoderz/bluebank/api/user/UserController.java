@@ -11,6 +11,11 @@ import com.zencoderz.bluebank.auth.util.AuthUtil;
 import com.zencoderz.bluebank.api.user.dto.UserAuthorityDTO;
 import com.zencoderz.bluebank.api.user.dto.UserFormCreateDTO;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import lombok.AllArgsConstructor;
 
 import org.springframework.http.MediaType;
@@ -32,6 +37,7 @@ import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 @RestController
 @RequestMapping("/auth")
 @AllArgsConstructor
+@Tag(name = "User")
 public class UserController {
 
     private UserService userService;
@@ -39,12 +45,14 @@ public class UserController {
     private AuthExceptionHandler authExceptionHandler;
 
     @PostMapping("/register")
+    @Schema(example = " ")
     public ResponseEntity<UserDTO> registerUser(@RequestBody @Valid UserFormCreateDTO userFormCreateDTO) {
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/login").toUriString());
         return ResponseEntity.created(uri).body(this.userService.saveUser(userFormCreateDTO));
     }
 
     @GetMapping("/currentUser")
+    @Operation(security = { @SecurityRequirement(name = "bearer-key") })
     public ResponseEntity<UserDTO> getUser(Authentication authentication) {
         UserDTO userDTO = this.userService.getUserDTO(authentication.getName());
         return ResponseEntity.ok().body(userDTO);
@@ -52,12 +60,14 @@ public class UserController {
 
     @PatchMapping("/user/exchangeAuthority")
     @PreAuthorize("hasAuthority('admin')")
+    @Operation(security = { @SecurityRequirement(name = "bearer-key") })
     public ResponseEntity<?> exchangeUserAuthority(@RequestBody UserAuthorityDTO dto) throws Exception {
         this.userService.changeUserAuthority(dto.getUsername(), dto.getAuthority());
         return ResponseEntity.ok().build();
     }
 
     @GetMapping("/refreshToken")
+    @Operation(security = { @SecurityRequirement(name = "refresh-key") })
     public void refreshToken(HttpServletRequest request, HttpServletResponse response) {
         String authorizationHeader = request.getHeader(AUTHORIZATION);
         if(authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
