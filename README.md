@@ -41,7 +41,6 @@ Inicialmente havíamos planejado em utilizar um versionador de banco de dados, c
 ## 📝 Documentação
 
 A documentação do desenvolvimento se baseou na criação de tasks, testes, commits e diagramas.
-Obs: O diagrama de relacionamento inicial foi criado e se encontra nas Issues.
 
 <a href="https://github.com/ZenCoderz/BlueBank/wiki">WIKI</a>
 
