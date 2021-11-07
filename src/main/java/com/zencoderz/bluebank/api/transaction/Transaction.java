@@ -1,8 +1,6 @@
 package com.zencoderz.bluebank.api.transaction;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
-
 import javax.persistence.*;
 
 import com.zencoderz.bluebank.api.account.Account;
@@ -14,7 +12,7 @@ public class Transaction {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    private Long id;
 
 	@Column(updatable = false)
 	@CreationTimestamp
@@ -32,17 +30,17 @@ public class Transaction {
     	
     }
 
-    public Transaction (UUID id, LocalDateTime createdAt, Double amount) {
+    public Transaction (Long id, LocalDateTime createdAt, Double amount) {
     	this.id = id;
     	this.createdAt = createdAt;
     	this.amount = amount;
     }
 
-	public UUID getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(UUID id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

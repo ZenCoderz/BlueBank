@@ -1,7 +1,5 @@
 package com.zencoderz.bluebank.api.transaction.dto;
 
-import java.util.UUID;
-
 import com.zencoderz.bluebank.api.account.dto.AccountDTO;
 
 import lombok.Data;
@@ -13,7 +11,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class TransactionDTO {
 
-	private UUID id;
+	private Long id;
 	
 	private String createdAt;
 

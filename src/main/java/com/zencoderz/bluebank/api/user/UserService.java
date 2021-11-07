@@ -4,11 +4,11 @@ import com.zencoderz.bluebank.api.user.dto.UserDTO;
 import com.zencoderz.bluebank.api.user.dto.UserFormCreateDTO;
 
 import java.util.Set;
-import java.util.UUID;
+
 
 public interface UserService {
 
-    User findUserById(UUID userId);
+    User findUserById(Long userId);
     UserDTO saveUser(UserFormCreateDTO userFormCreateDTO);
     User getUser(String username);
     UserDTO getUserDTO(String username);
