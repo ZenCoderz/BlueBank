@@ -66,6 +66,7 @@ public class AppAuthorizationFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(authToken);
             } catch(Exception exception) {
                 authExceptionHandler.addUnauthorizedToResponse(exception, response);
+                return;
             }
         }
         filterChain.doFilter(request, response);

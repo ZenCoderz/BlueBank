@@ -16,6 +16,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.zencoderz.bluebank.api.transaction.dto.TransactionDTO;
 import com.zencoderz.bluebank.api.transaction.dto.TransactionFormCreateDTO;
+import com.zencoderz.bluebank.api.transaction.dto.TransactionFormUpdateDTO;
 
 import lombok.AllArgsConstructor;
 
@@ -48,6 +49,14 @@ public class TransactionController {
     @Operation(security = { @SecurityRequirement(name = "bearer-key") })
     public ResponseEntity<TransactionDTO> findTransactionById(@PathVariable("id") UUID id) {
         TransactionDTO transactionDTO = this.transactionService.findTransactionDTOById(id);
+        return ResponseEntity.ok(transactionDTO);
+    }
+
+    @PutMapping("/{id}")
+    @Operation(security = { @SecurityRequirement(name = "bearer-key") })
+    public ResponseEntity<TransactionDTO> updateTransaction(@PathVariable("id") UUID id,
+                                                    @RequestBody @Valid TransactionFormUpdateDTO transactionFormUpdateDTO) {
+        TransactionDTO transactionDTO = this.transactionService.updateTransaction(id, transactionFormUpdateDTO);
         return ResponseEntity.ok(transactionDTO);
     }
 

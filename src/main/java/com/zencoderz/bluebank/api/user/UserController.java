@@ -51,6 +51,13 @@ public class UserController {
         return ResponseEntity.created(uri).body(this.userService.saveUser(userFormCreateDTO));
     }
 
+    @GetMapping("/users")
+    @Operation(security = { @SecurityRequirement(name = "bearer-key") })
+    public ResponseEntity<Set<UserDTO>> getUsers() {
+        Set<UserDTO> userDTOS = this.userService.getUsersDTO();
+        return ResponseEntity.ok(userDTOS);
+    }
+
     @GetMapping("/currentUser")
     @Operation(security = { @SecurityRequirement(name = "bearer-key") })
     public ResponseEntity<UserDTO> getUser(Authentication authentication) {
