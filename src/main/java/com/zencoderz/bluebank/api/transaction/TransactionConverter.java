@@ -10,6 +10,7 @@ import com.zencoderz.bluebank.api.account.AccountConverter;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -36,11 +37,15 @@ public class TransactionConverter {
 		return transactionDTO;
 	}
 
-	public Set<TransactionDTO> convertTransactionsToDTO (List<Transaction> transactions) {
+	public List<TransactionDTO> convertTransactionsToDTO (List<Transaction> transactions) {
 		if (transactions == null) {
-			return new HashSet<>();
+			return new ArrayList<>();
 		}
-		return transactions.stream().map(this::convertTransactionToDTO).collect(Collectors.toSet());
+		ArrayList<TransactionDTO> transactionsDTOReturn = new ArrayList<>();
+		for (Transaction t : transactions) {
+			transactionsDTOReturn.add(this.convertTransactionToDTO(t));
+		}
+		return transactionsDTOReturn;
 	}
 
 	private String formatDate(LocalDateTime localDateTime) {
