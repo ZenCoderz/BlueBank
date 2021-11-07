@@ -6,7 +6,11 @@ import java.util.UUID;
 
 import javax.validation.Valid;
 
+import com.zencoderz.bluebank.api.account.dto.AccountDTO;
+import com.zencoderz.bluebank.api.account.dto.AccountFormUpdateDTO;
+import com.zencoderz.bluebank.api.transaction.dto.TransactionFormUpdateDTO;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -40,6 +44,13 @@ public class TransactionController {
 	@GetMapping("/{id}")
     public ResponseEntity<TransactionDTO> findTransactionById(@PathVariable("id") UUID id) {
         TransactionDTO transactionDTO = this.transactionService.findTransactionDTOById(id);
+        return ResponseEntity.ok(transactionDTO);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<TransactionDTO> updateTransaction(@PathVariable("id") UUID id,
+                                                    @RequestBody @Valid TransactionFormUpdateDTO transactionFormUpdateDTO) {
+        TransactionDTO transactionDTO = this.transactionService.updateTransaction(id, transactionFormUpdateDTO);
         return ResponseEntity.ok(transactionDTO);
     }
 

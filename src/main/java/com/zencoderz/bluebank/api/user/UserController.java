@@ -44,6 +44,12 @@ public class UserController {
         return ResponseEntity.created(uri).body(this.userService.saveUser(userFormCreateDTO));
     }
 
+    @GetMapping()
+    public ResponseEntity<Set<UserDTO>> getUsers() {
+        Set<UserDTO> userDTOS = this.userService.getUsersDTO();
+        return ResponseEntity.ok(userDTOS);
+    }
+
     @GetMapping("/currentUser")
     public ResponseEntity<UserDTO> getUser(Authentication authentication) {
         UserDTO userDTO = this.userService.getUserDTO(authentication.getName());
