@@ -9,6 +9,7 @@ import com.zencoderz.bluebank.api.account.Account;
 import com.zencoderz.bluebank.api.account.AccountService;
 import com.zencoderz.bluebank.api.transaction.dto.TransactionFormUpdateDTO;
 import com.zencoderz.bluebank.exception.InvalidInputException;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.zencoderz.bluebank.api.transaction.dto.TransactionDTO;
@@ -49,8 +50,8 @@ public class TransactionServiceImpl implements TransactionService {
 	}
 
 	@Override
-	public Set<TransactionDTO> getTransactionsDTO() {
-		List<Transaction> transactions = this.transactionRepository.findAll();
+	public List<TransactionDTO> getTransactionsDTO() {
+		List<Transaction> transactions = this.transactionRepository.findAllByOrderByCreatedAt();
 		return this.transactionConverter.convertTransactionsToDTO(transactions);
 	}
 

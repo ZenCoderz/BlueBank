@@ -1,6 +1,7 @@
 package com.zencoderz.bluebank.api.transaction;
 
 import java.net.URI;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -40,8 +41,8 @@ public class TransactionController {
 
     @GetMapping
     @Operation(security = { @SecurityRequirement(name = "bearer-key") })
-    public ResponseEntity<Set<TransactionDTO>> getTransactions() {
-        Set<TransactionDTO> transactionDTOS = this.transactionService.getTransactionsDTO();
+    public ResponseEntity<List<TransactionDTO>> getTransactions() {
+        List<TransactionDTO> transactionDTOS = this.transactionService.getTransactionsDTO();
         return ResponseEntity.ok(transactionDTOS);
     }
 	
