@@ -17,7 +17,7 @@ Nesse projeto foi utilizado o Spring Boot Versão <b>2.5.6</b>, o <b>Maven</b> c
 <li> Lombock </li>
 </ul>
 
-Utilizamos o <b> Insomnia </b> para centralizar, documentar e testar as Endpoints da aplicação.
+Utilizamos o <b> Swagger </b> para centralizar, documentar e testar as Endpoints da aplicação.
 
 
 ## 🤔 Como começar?  <a name = "getting_started"></a>
@@ -27,6 +27,7 @@ Precisará ter os seguintes requisitos:
 - Java 11
 - Maven
 - E uma boa IDE ou Editor de Texto
+- Ter conhecimento sobre como utilizar o Swagger
 
 - Clique no Link para os <a href="https://github.com/ZenCoderz/BlueBank/wiki/Getting-Started"> próximos passos</a>
 
@@ -44,30 +45,23 @@ Obs: O diagrama de relacionamento inicial foi criado e se encontra nas Issues.
 
 <a href="https://github.com/ZenCoderz/BlueBank/wiki">WIKI</a>
 
-<a href="https://github.com/ZenCoderz/BlueBank/pulls?q=is%3Aopen+is%3Apr">ISSUES ABERTAS</a>
-
-<a href="https://github.com/ZenCoderz/BlueBank/pulls?q=is%3Apr+is%3Aclosed">ISSUES FECHADAS</a>
-
 <a href="https://drive.google.com/drive/u/4/folders/1KpA8uyDkZQmv5gefKnOQvWwbhWlnNdti"> DOCUMENTOS </a>
-
-<a href="https://www.postman.com/blue-shuttle-702989/workspace/public-bluebank-workspace"> POSTMAN </a>
-
 
 
 ## 📣 Problema <a name = "problem_statement"></a>
 
 O Problema em questão era criar um sistema em que estivesse disponível o Crud de Clientes, Contas, Telefones e gerasse 4 tipos diferentes de relatórios relacionado as Transações dos Clientes, isso em um prazo de 4 dias.
 
-- IDEAL: O Ideal seria que a aplicação fizesse transações em diferentes tipos de contas não bluebank e melhorar as entidades e relacionamentos das requisições solicitadas entre elas.
+- IDEAL: O Ideal seria que a aplicação fizesse transações em diferentes tipos de contas não apenas entre contas bluebank, ter uma camada de separação entre Usuário e Cliente, ter autorização disponível de acordo com o tipo de usuário, possuir um versionador de Banco de Dados, ter um client responsável por salvar os Logs, ter disponível as métricas, possuir um container para auxiliar na criação de ambiente, etc.
 
-- REALIDADE: Devido ao prazo de documentar e planejar de forma minimalista e muitas "hands on", acredito que a aplicação corresponda com as necessidades de forma que seja possível fazer transações entre contas blubank no backend através da API Rest.
+- REALIDADE: Devido ao prazo de documentar e planejar de forma minimalista e muitas "hands on", acredito que a aplicação corresponda com as necessidades minímnas de forma que seja possível fazer transações entre contas bluebank, criar usuários/clientes, manter histório de transações, realizar login e listar usuários/clientesno backend através da API.
 
-- CONSEQUÊNCIAS: Caso o "caminho feliz" não seja seguido, muito provavelmente a aplicação pode acabar dando throw de alguma exceção e existem brechas que podem sofrer exploits.
+- CONSEQUÊNCIAS: Não temos versionador de banco de dados, estamos utilizando o JPA para criar o banco, a aplicação ainda possui exceções com falta de informação ou não formatadas, não testamos todas as rotas e poderiamos ter acrescentado mais informação no Swagger.
 
 
 ## 👁‍🗨 Testes <a name = "idea"></a>
 
-Foram criados testes tanto unitários quanto de integração. Os testes unitários foram criados utilizando <b> Mockito</b> e os de integração utilizando <b>Mock MVC</b>.
+Foram criados testes tanto unitários quanto de integração. Os testes unitários foram criados utilizando <b> Mockito</b> e os de integração utilizando <b>Mock MVC</b>, porém nem todos ENDPOINTS estão testados, testamos apenas os principais caminhos, devido ao tempo.
 
 
 ## ✍️ Autores
