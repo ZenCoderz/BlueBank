@@ -28,12 +28,21 @@ public class AppAuthorizationFilter extends OncePerRequestFilter {
 
     private final AuthExceptionHandler authExceptionHandler = new AuthExceptionHandler();
 
+    private final Set<String> nonProhibitedURI =  Set.of(
+            "/login",
+            "/auth/refreshToken",
+            "/auth/register",
+            "/h2-console",
+            "/swagger-ui/",
+            "/swagger-ui/**"
+    );
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        if (request.getServletPath().equals("/login") ||
-                request.getServletPath().equals("/auth/refreshToken") ||
-                request.getServletPath().equals("/auth/register") ||
-                request.getServletPath().equals("/h2-console")) {
+        if (nonProhibitedURI.contains(request.getServletPath()) ||
+                request.getServletPath().contains("swagger-ui") ||
+                request.getServletPath().contains("swagger-resources") ||
+                request.getServletPath().contains("api-docs")) {
             filterChain.doFilter(request, response);
             return;
         }

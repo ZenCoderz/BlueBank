@@ -40,7 +40,7 @@ public class AppAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) {
         String username = "";
         String password = "";
-        if (request.getContentType().equals(MediaType.APPLICATION_JSON_VALUE)) {
+        if (request.getContentType().equals(MediaType.APPLICATION_JSON_VALUE) || request.getContentType().equals("loginRequestBody")) {
             try {
                 LoginFormDTO form = this.extractJsonUser(request);
                 username = form.getUsername();

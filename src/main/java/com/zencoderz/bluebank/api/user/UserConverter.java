@@ -1,7 +1,5 @@
 package com.zencoderz.bluebank.api.user;
 
-import com.zencoderz.bluebank.api.transaction.Transaction;
-import com.zencoderz.bluebank.api.transaction.dto.TransactionDTO;
 import com.zencoderz.bluebank.api.user.attributes.Authority;
 import com.zencoderz.bluebank.api.user.dto.UserDTO;
 import com.zencoderz.bluebank.api.user.dto.UserFormCreateDTO;

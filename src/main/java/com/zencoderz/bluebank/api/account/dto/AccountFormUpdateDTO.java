@@ -1,10 +1,11 @@
 package com.zencoderz.bluebank.api.account.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 
 @Data
@@ -12,16 +13,19 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 public class AccountFormUpdateDTO {
 
-	@Size(min=4, max=4)
+    @Size(min=4, max=4)
+    @Schema(example = "4444")
     private String agency;
 
     @Size(min=1, max=10)
+    @Schema(example = "1010101010")
     private String accountNumber;
 
     @Size(min=1, max=1)
+    @Schema(example = "1")
     private String digit;
 
-    @Min(0)
+    @Schema(example = "500")
     private Double credit = 0D;
 
 }

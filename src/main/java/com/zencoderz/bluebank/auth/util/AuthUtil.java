@@ -25,7 +25,7 @@ public class AuthUtil {
     }
 
     public Date jwtTimeToLive() {
-        return new Date(System.currentTimeMillis() + 10 * 60 * 1000);
+        return new Date(System.currentTimeMillis()  + 100 * 60 * 1000);
     }
 
     public void isUserAllowed(List<Authority> notAllowedAuthorities, User user) {
@@ -35,4 +35,5 @@ public class AuthUtil {
             }
         });
     }
+
 }
