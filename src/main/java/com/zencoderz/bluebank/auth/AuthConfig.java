@@ -48,8 +48,8 @@ public class AuthConfig extends WebSecurityConfigurerAdapter {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.authorizeRequests().antMatchers(
                 "/login/**",
-                "/auth/refreshToken/**",
-                "/auth/register/**",
+                "/users/refreshToken/**",
+                "/users/register/**",
                 "/h2-console/**").permitAll();
         http.addFilter(authFilter);
         http.addFilterBefore(new AppAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
