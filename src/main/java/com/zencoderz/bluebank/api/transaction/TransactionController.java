@@ -3,7 +3,7 @@ package com.zencoderz.bluebank.api.transaction;
 import java.net.URI;
 import java.util.List;
 import java.util.Set;
-import java.util.UUID;
+
 
 import javax.validation.Valid;
 
@@ -48,14 +48,14 @@ public class TransactionController {
 	
 	@GetMapping("/{id}")
     @Operation(security = { @SecurityRequirement(name = "bearer-key") })
-    public ResponseEntity<TransactionDTO> findTransactionById(@PathVariable("id") UUID id) {
+    public ResponseEntity<TransactionDTO> findTransactionById(@PathVariable("id") Long id) {
         TransactionDTO transactionDTO = this.transactionService.findTransactionDTOById(id);
         return ResponseEntity.ok(transactionDTO);
     }
 
     @PutMapping("/{id}")
     @Operation(security = { @SecurityRequirement(name = "bearer-key") })
-    public ResponseEntity<TransactionDTO> updateTransaction(@PathVariable("id") UUID id,
+    public ResponseEntity<TransactionDTO> updateTransaction(@PathVariable("id") Long id,
                                                     @RequestBody @Valid TransactionFormUpdateDTO transactionFormUpdateDTO) {
         TransactionDTO transactionDTO = this.transactionService.updateTransaction(id, transactionFormUpdateDTO);
         return ResponseEntity.ok(transactionDTO);
@@ -63,7 +63,7 @@ public class TransactionController {
 
     @DeleteMapping("/{id}")
     @Operation(security = { @SecurityRequirement(name = "bearer-key") })
-    public ResponseEntity<String> deleteTransaction(@PathVariable UUID id){
+    public ResponseEntity<String> deleteTransaction(@PathVariable Long id){
         this.transactionService.deleteTransaction(id);
         return ResponseEntity.ok("Deleted");
     }

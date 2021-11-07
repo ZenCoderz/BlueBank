@@ -35,7 +35,7 @@ import java.util.*;
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/users")
 @AllArgsConstructor
 @Tag(name = "User")
 public class UserController {
@@ -51,7 +51,7 @@ public class UserController {
         return ResponseEntity.created(uri).body(this.userService.saveUser(userFormCreateDTO));
     }
 
-    @GetMapping("/users")
+    @GetMapping("/")
     @Operation(security = { @SecurityRequirement(name = "bearer-key") })
     public ResponseEntity<Set<UserDTO>> getUsers() {
         Set<UserDTO> userDTOS = this.userService.getUsersDTO();
@@ -65,7 +65,7 @@ public class UserController {
         return ResponseEntity.ok().body(userDTO);
     }
 
-    @PatchMapping("/user/exchangeAuthority")
+    @PatchMapping("/exchangeAuthority")
     @PreAuthorize("hasAuthority('admin')")
     @Operation(security = { @SecurityRequirement(name = "bearer-key") })
     public ResponseEntity<?> exchangeUserAuthority(@RequestBody UserAuthorityDTO dto) throws Exception {

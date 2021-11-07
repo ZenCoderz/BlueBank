@@ -5,15 +5,15 @@ import com.zencoderz.bluebank.api.account.dto.AccountFormCreateDTO;
 import com.zencoderz.bluebank.api.account.dto.AccountFormUpdateDTO;
 
 import java.util.Set;
-import java.util.UUID;
+
 
 public interface AccountService {
 
-    Account findAccountById(UUID id);
+    Account findAccountById(Long id);
     Set<AccountDTO> getAccountsDTO();
-    AccountDTO findAccountDTOById(UUID id);
-    AccountDTO createAccount(UUID userId, AccountFormCreateDTO accountFormCreateDTO);
-    AccountDTO updateAccount(UUID id, AccountFormUpdateDTO accountFormUpdateDTO);
-    void deleteAccount(UUID id);
+    AccountDTO findAccountDTOById(Long id);
+    AccountDTO createAccount(Long userId, AccountFormCreateDTO accountFormCreateDTO);
+    AccountDTO updateAccount(Long id, AccountFormUpdateDTO accountFormUpdateDTO);
+    void deleteAccount(Long id);
 
 }

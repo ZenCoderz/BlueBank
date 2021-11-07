@@ -39,7 +39,7 @@ public class UserControllerTest extends BluebankApplicationTests {
     @Test
     public void register_WithCorrectData() throws Exception {
         UserFormCreateDTO user = this.util.buildUserFormCreateDTO();
-        MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.post("/auth/register")
+        MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.post("/users/register")
                 .contentType(MediaType.APPLICATION_JSON).content(gson.toJson(user)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.password").doesNotExist())
                 .andReturn();
@@ -60,7 +60,7 @@ public class UserControllerTest extends BluebankApplicationTests {
 
     @Test
     public void register_WithEmptyData() throws Exception {
-        this.mockMvc.perform(MockMvcRequestBuilders.post("/auth/register")
+        this.mockMvc.perform(MockMvcRequestBuilders.post("/users/register")
                 .contentType(MediaType.APPLICATION_JSON).content(""))
                 .andExpect(MockMvcResultMatchers.status().isBadRequest());
     }
@@ -69,7 +69,7 @@ public class UserControllerTest extends BluebankApplicationTests {
     public void register_WithEmptyUsername() throws Exception {
         UserFormCreateDTO user = this.util.buildUserFormCreateDTO();
         user.setUsername("");
-        this.mockMvc.perform(MockMvcRequestBuilders.post("/auth/register")
+        this.mockMvc.perform(MockMvcRequestBuilders.post("/users/register")
                         .contentType(MediaType.APPLICATION_JSON).content(gson.toJson(user)))
                 .andExpect(MockMvcResultMatchers.status().isBadRequest());
     }
@@ -78,7 +78,7 @@ public class UserControllerTest extends BluebankApplicationTests {
     public void register_WithEmptyIdentifier() throws Exception {
         UserFormCreateDTO user = this.util.buildUserFormCreateDTO();
         user.setIdentifier("");
-        this.mockMvc.perform(MockMvcRequestBuilders.post("/auth/register")
+        this.mockMvc.perform(MockMvcRequestBuilders.post("/users/register")
                         .contentType(MediaType.APPLICATION_JSON).content(gson.toJson(user)))
                 .andExpect(MockMvcResultMatchers.status().isBadRequest());
     }
@@ -87,7 +87,7 @@ public class UserControllerTest extends BluebankApplicationTests {
     public void register_WithEmptyIdentifierType() throws Exception {
         UserFormCreateDTO user = this.util.buildUserFormCreateDTO();
         user.setIdentifierType(null);
-        this.mockMvc.perform(MockMvcRequestBuilders.post("/auth/register")
+        this.mockMvc.perform(MockMvcRequestBuilders.post("/users/register")
                         .contentType(MediaType.APPLICATION_JSON).content(gson.toJson(user)))
                 .andExpect(MockMvcResultMatchers.status().isBadRequest());
     }

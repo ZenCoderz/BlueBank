@@ -3,7 +3,6 @@ package com.zencoderz.bluebank.api.transaction;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.UUID;
 
 import com.zencoderz.bluebank.api.account.Account;
 import com.zencoderz.bluebank.api.account.AccountService;
@@ -30,7 +29,7 @@ public class TransactionServiceImpl implements TransactionService {
 	private AccountService accountService;
 	private final EntityManager entityManager;
 
-	private Transaction findTransactionById(UUID id) {
+	private Transaction findTransactionById(Long id) {
         Optional<Transaction> transactionOptional = this.transactionRepository.findById(id);
         if (transactionOptional.isEmpty()) {
             throw new RuntimeException("Transaction not found");
@@ -40,11 +39,11 @@ public class TransactionServiceImpl implements TransactionService {
 	
 	@Override
 	public TransactionDTO createTransaction(TransactionFormCreateDTO transactionFormCreateDTO) {
-		Account from = this.accountService.findAccountById(transactionFormCreateDTO.getFrom());
-		if (from.getId().equals(transactionFormCreateDTO.getTo())) {
+		Account from = this.accountService.findAccountById(transactionFormCreateDTO.getFromAccountId());
+		if (from.getId().equals(transactionFormCreateDTO.getToAccountId())) {
 			throw new InvalidInputException("You can't transfer to your own account");
 		}
-		Account to = this.accountService.findAccountById(transactionFormCreateDTO.getTo());
+		Account to = this.accountService.findAccountById(transactionFormCreateDTO.getToAccountId());
 		Transaction transaction = this.makeTransaction(from, to, transactionFormCreateDTO.getAmount());
         return this.transactionConverter.convertTransactionToDTO(transaction);
 	}
@@ -56,13 +55,13 @@ public class TransactionServiceImpl implements TransactionService {
 	}
 
 	@Override
-	public TransactionDTO findTransactionDTOById(UUID id) {
+	public TransactionDTO findTransactionDTOById(Long id) {
 		Transaction transaction = this.findTransactionById(id);
         return this.transactionConverter.convertTransactionToDTO(transaction);
 	}
 
 	@Override
-	public TransactionDTO updateTransaction(UUID id, TransactionFormUpdateDTO transactionFormUpdateDTO) {
+	public TransactionDTO updateTransaction(Long id, TransactionFormUpdateDTO transactionFormUpdateDTO) {
 		Transaction transaction = this.findTransactionById(id);
 		transaction.setAmount(transactionFormUpdateDTO.getAmount());
 		this.transactionRepository.save(transaction);
@@ -70,7 +69,7 @@ public class TransactionServiceImpl implements TransactionService {
 	}
 
 	@Override
-	public void deleteTransaction(UUID id) {
+	public void deleteTransaction(Long id) {
 		Transaction transaction = this.findTransactionById(id);
 		this.transactionRepository.delete(transaction);
 	}
@@ -89,7 +88,7 @@ public class TransactionServiceImpl implements TransactionService {
 
 	private void transferAmountFromTo(Account from, Account to, Double value) {
 		if (from.getBalance() < value) {
-			throw new InvalidInputException("You can't make a transference bigger than your blaance");
+			throw new InvalidInputException("You can't make a transference bigger than your balance");
 		}
 		from.setBalance(from.getBalance() - value);
 		to.setBalance(to.getBalance() + value);

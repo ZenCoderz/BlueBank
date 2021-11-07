@@ -30,8 +30,8 @@ public class AppAuthorizationFilter extends OncePerRequestFilter {
 
     private final Set<String> nonProhibitedURI =  Set.of(
             "/login",
-            "/auth/refreshToken",
-            "/auth/register",
+            "/users/refreshToken",
+            "/users/register",
             "/h2-console",
             "/swagger-ui/",
             "/swagger-ui/**"
@@ -71,4 +71,5 @@ public class AppAuthorizationFilter extends OncePerRequestFilter {
         }
         filterChain.doFilter(request, response);
     }
+
 }

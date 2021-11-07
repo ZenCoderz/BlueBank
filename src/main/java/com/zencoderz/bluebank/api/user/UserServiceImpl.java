@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private final UserRepository userRepository;
 
     @Override
-    public User findUserById(UUID userId) {
+    public User findUserById(Long userId) {
         Optional<User> optionalUser = this.userRepository.findById(userId);
         if (optionalUser.isEmpty()) {
             throw new ContentNotFoundException("User doesn't Exist");

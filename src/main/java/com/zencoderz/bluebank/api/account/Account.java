@@ -7,7 +7,6 @@ import javax.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "user_id" })})
 @Entity
@@ -15,7 +14,7 @@ public class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    private Long id;
 
     @Column(length = 4, nullable = false)
     private String agency;
@@ -44,7 +43,7 @@ public class Account {
 
     }
 
-    public Account(UUID id, String agency, String accountNumber, String digit, Double balance, Double credit, User user) {
+    public Account(Long id, String agency, String accountNumber, String digit, Double balance, Double credit, User user) {
         this.id = id;
         this.agency = agency;
         this.accountNumber = accountNumber;
@@ -54,11 +53,11 @@ public class Account {
         this.user = user;
     }
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

@@ -7,8 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
-import java.util.UUID;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,9 +16,9 @@ public class TransactionFormCreateDTO {
 	private Double amount;
 
 	@NotNull
-	private UUID from;
+	private Long fromAccountId;
 
 	@NotNull
-	private UUID to;
+	private Long toAccountId;
 
 }
