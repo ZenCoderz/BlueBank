@@ -18,7 +18,7 @@ import javax.validation.Valid;
 
 import java.net.URI;
 import java.util.Set;
-import java.util.UUID;
+
 
 @RestController
 @RequestMapping("/accounts")
@@ -37,14 +37,14 @@ public class AccountController {
 
     @GetMapping("/{id}")
     @Operation(security = { @SecurityRequirement(name = "bearer-key") })
-    public ResponseEntity<AccountDTO> findAccountById(@PathVariable("id") UUID id) {
+    public ResponseEntity<AccountDTO> findAccountById(@PathVariable("id") Long id) {
         AccountDTO accountDTO = this.accountService.findAccountDTOById(id);
         return ResponseEntity.ok(accountDTO);
     }
 
     @PostMapping("/user/{userId}")
     @Operation(security = { @SecurityRequirement(name = "bearer-key") })
-    public ResponseEntity<AccountDTO> createAccount(@PathVariable("userId") UUID userId,
+    public ResponseEntity<AccountDTO> createAccount(@PathVariable("userId") Long userId,
                                                     @RequestBody @Valid AccountFormCreateDTO accountFormCreateDTO) {
         AccountDTO accountDTO = this.accountService.createAccount(userId, accountFormCreateDTO);
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/" + accountDTO.getId()).toUriString());
@@ -53,7 +53,7 @@ public class AccountController {
 
     @PutMapping("/{id}")
     @Operation(security = { @SecurityRequirement(name = "bearer-key") })
-    public ResponseEntity<AccountDTO> updateAccount(@PathVariable("id") UUID id,
+    public ResponseEntity<AccountDTO> updateAccount(@PathVariable("id") Long id,
                                                     @RequestBody @Valid AccountFormUpdateDTO accountFormUpdateDTO) {
         AccountDTO accountDTO = this.accountService.updateAccount(id, accountFormUpdateDTO);
         return ResponseEntity.ok(accountDTO);
@@ -61,7 +61,7 @@ public class AccountController {
 
     @DeleteMapping(value = "/{id}")
     @Operation(security = { @SecurityRequirement(name = "bearer-key") })
-    public ResponseEntity<String> deleteAccount(@PathVariable UUID id){
+    public ResponseEntity<String> deleteAccount(@PathVariable Long id){
         this.accountService.deleteAccount(id);
         return ResponseEntity.ok("Deleted");
     }

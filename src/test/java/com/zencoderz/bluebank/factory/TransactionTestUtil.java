@@ -32,8 +32,8 @@ public class TransactionTestUtil extends TestUtilWithUniqueIdentifier {
     public TransactionFormCreateDTO convertTransactionToForm(Transaction transaction) {
         TransactionFormCreateDTO transactionFormCreateDTO = new TransactionFormCreateDTO();
         transactionFormCreateDTO.setAmount(transaction.getAmount());
-        transactionFormCreateDTO.setFrom(transaction.getFrom().getId());
-        transactionFormCreateDTO.setTo(transaction.getTo().getId());
+        transactionFormCreateDTO.setFromAccountId(transaction.getFrom().getId());
+        transactionFormCreateDTO.setToAccountId(transaction.getTo().getId());
         return transactionFormCreateDTO;
     }
 

@@ -8,7 +8,7 @@ import com.zencoderz.bluebank.api.user.attributes.IdentifierType;
 
 import javax.persistence.*;
 
-import java.util.UUID;
+
 
 @Entity
 @Table(name="user", indexes = {@Index(name = "identifier_identifier_type_index", columnList = "identifier, identifierType", unique = true)})
@@ -16,7 +16,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    private Long id;
 
     @Column(nullable = false)
     private String name;
@@ -41,7 +41,7 @@ public class User {
 
     public User() {}
 
-    public User(UUID id, String name, String username, String password, Authority authority, String identifier, IdentifierType identifierType, Account account) {
+    public User(Long id, String name, String username, String password, Authority authority, String identifier, IdentifierType identifierType, Account account) {
         this.id = id;
         this.name = name;
         this.username = username;
@@ -52,11 +52,11 @@ public class User {
         this.account = account;
     }
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
