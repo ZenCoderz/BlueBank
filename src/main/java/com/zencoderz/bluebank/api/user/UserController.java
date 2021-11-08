@@ -53,8 +53,8 @@ public class UserController {
 
     @GetMapping("/")
     @Operation(security = { @SecurityRequirement(name = "bearer-key") })
-    public ResponseEntity<Set<UserDTO>> getUsers() {
-        Set<UserDTO> userDTOS = this.userService.getUsersDTO();
+    public ResponseEntity<List<UserDTO>> getUsers() {
+        List<UserDTO> userDTOS = this.userService.getUsersDTO();
         return ResponseEntity.ok(userDTOS);
     }
 
