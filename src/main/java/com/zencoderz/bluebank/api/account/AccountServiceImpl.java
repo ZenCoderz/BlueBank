@@ -5,6 +5,7 @@ import com.zencoderz.bluebank.api.account.dto.AccountFormCreateDTO;
 import com.zencoderz.bluebank.api.account.dto.AccountFormUpdateDTO;
 import com.zencoderz.bluebank.api.user.User;
 import com.zencoderz.bluebank.api.user.UserService;
+import com.zencoderz.bluebank.exception.ContentNotFoundException;
 import com.zencoderz.bluebank.exception.InvalidInputException;
 
 import lombok.AllArgsConstructor;
@@ -28,7 +29,7 @@ public class AccountServiceImpl implements AccountService {
     public Account findAccountById(Long id) {
         Optional<Account> accountOptional = this.accountRepository.findById(id);
         if (accountOptional.isEmpty()) {
-            throw new RuntimeException("Account not found");
+            throw new ContentNotFoundException("Account not found");
         }
         return accountOptional.get();
     }
