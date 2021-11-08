@@ -1,5 +1,7 @@
 package com.zencoderz.bluebank.api.user;
 
+import com.zencoderz.bluebank.api.transaction.Transaction;
+import com.zencoderz.bluebank.api.transaction.dto.TransactionDTO;
 import com.zencoderz.bluebank.api.user.attributes.Authority;
 import com.zencoderz.bluebank.api.user.dto.UserDTO;
 import com.zencoderz.bluebank.api.user.dto.UserFormCreateDTO;
@@ -9,6 +11,7 @@ import lombok.AllArgsConstructor;
 
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -47,11 +50,15 @@ public class UserConverter {
         return userDTO;
     }
 
-    public Set<UserDTO> convertUsersToDTO (List<User> users) {
+    public List<UserDTO> convertUsersToDTO (List<User> users) {
         if (users == null) {
-            return new HashSet<>();
+            return new ArrayList<>();
         }
-        return users.stream().map(this::userToUserDTO).collect(Collectors.toSet());
+        ArrayList<UserDTO> usersDTOReturn = new ArrayList<>();
+        for (User u : users) {
+            usersDTOReturn.add(this.userToUserDTO(u));
+        }
+        return usersDTOReturn;
     }
 
 }

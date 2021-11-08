@@ -74,8 +74,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public Set<UserDTO> getUsersDTO() {
-        List<User> users = this.userRepository.findAll();
+    public List<UserDTO> getUsersDTO() {
+        List<User> users = this.userRepository.findAllByOrderById();
         return this.userConverter.convertUsersToDTO(users);
     }
 
