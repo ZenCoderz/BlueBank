@@ -11,7 +11,7 @@ import javax.persistence.*;
 
 
 @Entity
-@Table(name="user", indexes = {@Index(name = "identifier_identifier_type_index", columnList = "identifier, identifierType", unique = true)})
+@Table(name="app_user", indexes = {@Index(name = "identifier_identifier_type_index", columnList = "identifier, identifierType", unique = true)})
 public class User {
 
     @Id
