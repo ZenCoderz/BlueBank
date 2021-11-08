@@ -17,10 +17,12 @@ Nesse projeto foi utilizado o Spring Boot Versão <b>2.5.6</b>, o <b>Maven</b> c
 <li> Lombock </li>
 </ul>
 
-Utilizamos o <b> Swagger </b> para centralizar, documentar e testar as Endpoints da aplicação.
+Utilizamos o <b><a href="https://zencoderz-test.herokuapp.com/api/swagger-ui/index.html?configUrl=/api/v3/api-docs/swagger-config"> Swagger</a></b> para centralizar e documentar os Endpoints da aplicação.
 
 
 ## 🤔 Como começar?  <a name = "getting_started"></a>
+
+Caso prefira, já temos a aplicação hospedada: <a href="https://zencoderz-test.herokuapp.com/api/swagger-ui/index.html?configUrl=/api/v3/api-docs/swagger-config" target="_blank">Aplicação</a>
 
 Precisará ter os seguintes requisitos:
 
@@ -35,7 +37,7 @@ Precisará ter os seguintes requisitos:
 
 Inicialmente havíamos planejado em utilizar um versionador de banco de dados, como liquibase, porém devido a divergência de ambientes e o curto prazo, acabamos por optar em deixar a responsabilidade da criação do Banco de Dados para o Spring Data JPA.
 
-- Clique no Link para baixar o <a href="">Diagrama</a>
+- Clique no Link para baixar o <a href="https://trello.com/1/cards/617acd516329f81e8cdcfbc5/attachments/61888f4c517df130c1c99b6c/previews/61888f4c517df130c1c99b76/download/BlueBankERD-Revisado.png">Diagrama</a>
 
 
 ## 📝 Documentação
