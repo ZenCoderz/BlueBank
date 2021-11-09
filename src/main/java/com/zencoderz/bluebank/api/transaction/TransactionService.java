@@ -11,6 +11,7 @@ public interface TransactionService {
 	TransactionDTO createTransaction(TransactionFormCreateDTO transactionFormCreateDTO);
 	List<TransactionDTO> getTransactionsDTO();
 	TransactionDTO findTransactionDTOById(Long id);
+	List<TransactionDTO> getTransactionsByAccountId(Long accountId);
 	TransactionDTO updateTransaction(Long id, TransactionFormUpdateDTO transactionFormUpdateDTO);
 	void deleteTransaction (Long id);
 

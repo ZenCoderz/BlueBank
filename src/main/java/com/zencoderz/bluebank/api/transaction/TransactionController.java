@@ -53,6 +53,13 @@ public class TransactionController {
         return ResponseEntity.ok(transactionDTO);
     }
 
+    @GetMapping("/account/{accountId}")
+    @Operation(security = { @SecurityRequirement(name = "bearer-key") })
+    public ResponseEntity<List<TransactionDTO>> findTransactionsByAccountId(@PathVariable("accountId") Long accountId) {
+        List<TransactionDTO> transactionsDTO = this.transactionService.getTransactionsByAccountId(accountId);
+        return ResponseEntity.ok(transactionsDTO);
+    }
+
     @PutMapping("/{id}")
     @Operation(security = { @SecurityRequirement(name = "bearer-key") })
     public ResponseEntity<TransactionDTO> updateTransaction(@PathVariable("id") Long id,

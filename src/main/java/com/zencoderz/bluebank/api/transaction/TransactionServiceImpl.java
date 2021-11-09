@@ -36,7 +36,13 @@ public class TransactionServiceImpl implements TransactionService {
         }
         return transactionOptional.get();
     }
-	
+
+	@Override
+	public List<TransactionDTO> getTransactionsByAccountId(Long accountId) {
+		return this.transactionConverter.convertTransactionsToDTO(
+				this.transactionRepository.findAllByFromAndOrderByCreatedAt(accountId));
+	}
+
 	@Override
 	public TransactionDTO createTransaction(TransactionFormCreateDTO transactionFormCreateDTO) {
 		Account from = this.accountService.findAccountById(transactionFormCreateDTO.getFromAccountId());
